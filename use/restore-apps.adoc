@@ -1,0 +1,88 @@
+---
+sidebar: sidebar 
+permalink: use/restore-apps.html 
+keywords: restore app, restoring an app, restore an app, restore 
+summary: Astra kann Ihre Applikationskonfiguration und Ihren persistenten Storage aus einem Snapshot oder Backup wiederherstellen. Persistente Storage-Backups werden von Ihrem Objektspeicher übertragen, sodass die Wiederherstellung aus einem bestehenden Backup möglichst schnell erfolgt. 
+---
+= Wiederherstellung von Applikationen
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/use/
+
+
+[role="lead"]
+Astra Control kann Ihre Applikation aus einem Snapshot oder einem Backup wiederherstellen. Das Wiederherstellen aus einem vorhandenen Snapshot erfolgt schneller, wenn die Anwendung auf dasselbe Cluster wiederhergestellt wird. Sie können die Astra Control UI oder verwenden https://docs.netapp.com/us-en/astra-automation/index.html["Die Astra Control API"^] Zur Wiederherstellung von Applikationen.
+
+
+NOTE: Wenn Sie eine in-Place-Wiederherstellung einer Applikation durchführen, die NetApp ONTAP Storage verwendet, kann der von der wiederhergestellten Applikation verwendete Speicherplatz verdoppelt werden. Nachdem Sie eine in-Place-Wiederherstellung durchgeführt haben, entfernen Sie alle unerwünschten Snapshots aus der wiederhergestellten Applikation, um Speicherplatz freizugeben.
+
+.Über diese Aufgabe
+* *Schützen Sie Ihre Apps zuerst*: Es wird dringend empfohlen, einen Schnappschuss von Ihrer Anwendung zu machen oder zu sichern, bevor Sie sie wiederherstellen. Dadurch können Sie den Snapshot oder die Datensicherung klonen, wenn die Wiederherstellung nicht erfolgreich war.
+* *Zielvolumen prüfen*: Wenn Sie auf einem anderen Cluster wiederherstellen, stellen Sie sicher, dass der Cluster denselben Zugriffsmodus für persistente Volumes verwendet (z. B. ReadWriteManche). Der Wiederherstellungsvorgang schlägt fehl, wenn der Zugriffsmodus des Ziel-persistenten Volumes anders ist.
+* *(nur OpenShift-Cluster) Richtlinien hinzufügen*: Wenn Sie ein Projekt zum Hosten einer App auf einem OpenShift-Cluster erstellen, wird dem Projekt (oder Kubernetes-Namespace) eine SecurityContext-UID zugewiesen. Um Astra Control Center zum Schutz Ihrer App zu aktivieren und die App in ein anderes Cluster oder Projekt in OpenShift zu verschieben, müssen Sie Richtlinien hinzufügen, mit denen die App als beliebige UID ausgeführt werden kann. Als Beispiel erteilen die folgenden OpenShift-CLI-Befehle der WordPress-App die entsprechenden Richtlinien.
++
+`oc new-project wordpress`
+`oc adm policy add-scc-to-group anyuid system:serviceaccounts:wordpress`
+`oc adm policy add-scc-to-user privileged -z default -n wordpress`
+
+* *Helm implementierte Apps*: Mit Helm 3 implementierte Klon-Apps (oder ein Upgrade von Helm 2 auf Helm 3) werden vollständig unterstützt. Mit Helm 2 implementierte Apps werden nicht unterstützt.
+
+
+.Schritte
+. Wählen Sie *Anwendungen* und dann den Namen einer App aus.
+. Wählen Sie *Datenschutz*.
+. Wenn Sie von einem Snapshot wiederherstellen möchten, lassen Sie das *Snapshots* -Symbol ausgewählt. Andernfalls wählen Sie das Symbol *Backups* aus, um aus einem Backup wiederherzustellen.
+. Wählen Sie im Menü Optionen in der Spalte *Aktionen* für den Snapshot oder die Datensicherung, aus der Sie wiederherstellen möchten, *Anwendung wiederherstellen* aus.
+. Wählen Sie den Wiederherstellungstyp aus:
++
+** *Wiederherstellen auf ursprünglichen Namespaces*: Verwenden Sie dieses Verfahren, um die App an Ort und Stelle auf dem ursprünglichen Cluster wiederherzustellen.
++
+[CAUTION]
+====
+Die Durchführung einer in-Place-Wiederherstellung in einer Anwendung, in der Ressourcen mit einer anderen Anwendung geteilt werden, kann unbeabsichtigte Ergebnisse haben. Alle Ressourcen, die von den Applikationen gemeinsam genutzt werden, werden ersetzt, wenn eine in-Place-Wiederherstellung für eine der Applikationen durchgeführt wird. Das folgende Szenario führt zum Beispiel zu einer unerwünschten Situation bei der Verwendung der NetApp SnapMirror Replizierung:
+
+... Sie definieren die Anwendung `app1` Verwenden des Namespace `ns1`.
+... Sie konfigurieren eine Replikationsbeziehung für `app1`.
+... Sie definieren die Anwendung `app2` (Auf demselben Cluster) mit den Namespaces `ns1` Und `ns2`.
+... Sie konfigurieren eine Replikationsbeziehung für `app2`.
+... Die Replizierung wird für rückgängig gemacht `app2`. Das verursacht das `app1` App auf dem Quellcluster zu deaktivieren.
+
+
+====
++
+... Wählen Sie den Snapshot aus, mit dem die Anwendung wiederhergestellt werden soll, die auf eine frühere Version von selbst zurückgesetzt wird.
+... Wählen Sie *Weiter*.
++
+
+NOTE: Wenn Sie in einem zuvor gelöschten Namespace wiederherstellen, wird im Rahmen des Wiederherstellungsprozesses ein neuer Namespace mit demselben Namen erstellt. Alle Benutzer, die über Berechtigungen zum Verwalten von Apps im zuvor gelöschten Namespace verfügen, müssen die Rechte für den neu erstellten Namespace manuell wiederherstellen.
+
+... Überprüfen Sie die Details zur Wiederherstellungsaktion, geben Sie „Wiederherstellen“ ein, und wählen Sie *Wiederherstellen*.
+
+
+** *Wiederherstellen auf neuen Namespaces*: Verwenden Sie dieses Verfahren, um die App auf einem anderen Cluster oder mit verschiedenen Namespaces von der Quelle wiederherzustellen.
++
+... Wählen Sie das Ziel-Cluster für die Anwendung aus, die Sie wiederherstellen möchten.
+... Geben Sie für jeden mit der App verknüpften Quell-Namespace einen Ziel-Namespace ein.
++
+
+NOTE: Astra Control erstellt als Teil dieser Wiederherstellungsoption neue Ziel-Namespaces. Die angegebenen Ziel-Namespaces dürfen nicht bereits im Ziel-Cluster vorhanden sein.
+
+... Wählen Sie *Weiter*.
+... Wählen Sie den Snapshot aus, mit dem die Anwendung wiederhergestellt werden soll.
+... Wählen Sie *Weiter*.
+... Überprüfen Sie die Details zur Wiederherstellungsaktion und wählen Sie *Wiederherstellen*.
+
+
+
+
+
+
+.Ergebnis
+Astra Control stellt die App basierend auf den von Ihnen angegebenen Informationen wieder her. Wenn Sie die Applikation bereits wiederhergestellt haben, wird der Inhalt vorhandener persistenter Volumes durch den Inhalt persistenter Volumes aus der wiederhergestellten App ersetzt.
+
+
+NOTE: Nach einer Datensicherungsoperation (Klonen, Backup oder Wiederherstellung) und einer anschließenden Anpassung des persistenten Volumes beträgt die Verzögerung bis zu zwanzig Minuten, bevor die neue Volume-Größe in der Web-Benutzeroberfläche angezeigt wird. Der Datensicherungsvorgang ist innerhalb von Minuten erfolgreich und Sie können mit der Management Software für das Storage-Backend die Änderung der Volume-Größe bestätigen.
+
+
+IMPORTANT: Jeder Mitgliedsbenutzer mit Namespace-Einschränkungen nach Namespace-Name/ID oder anhand von Namespace-Bezeichnungen kann eine Applikation in einem neuen Namespace im selben Cluster oder einem anderen Cluster in seinem Unternehmenskonto klonen oder wiederherstellen. Derselbe Benutzer kann jedoch nicht auf die geklonte oder wiederhergestellte Anwendung im neuen Namespace zugreifen. Nachdem ein neuer Namespace durch einen Klon- oder Wiederherstellungsvorgang erstellt wurde, kann der Account-Administrator/-Eigentümer das Mitglied-Benutzerkonto bearbeiten und Rolleneinschränkungen für den betroffenen Benutzer aktualisieren, um dem neuen Namespace Zugriff zu gewähren.
