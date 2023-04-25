@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head class="at-element-marker">
+  <title>Sichern von Applikationen durch Snapshots und Backups</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Sichern von Applikationen durch Snapshots und Backups" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/de-de/astra-control-center-2211/use/protect-apps.html" />
+	<meta property="og:description" content="Schützen Sie Ihre Applikationen, indem Sie Snapshots und Backups über eine automatisierte Sicherungsrichtlinie oder Ad-hoc-Erstellung erstellen." />
+  <meta property="og:image" content="https://docs.netapp.com/de-de/astra-control-center-2211/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Schützen Sie Ihre Applikationen, indem Sie Snapshots und Backups über eine automatisierte Sicherungsrichtlinie oder Ad-hoc-Erstellung erstellen.">
+  <meta name="keywords" content=" backup, back up, backup apps, back up apps, snapshots, snapshot an app, take a snapshot, take a backup, view backups, view snapshots, set policy, set schedule, schedule backups, schedule snapshots"><!-- Icons -->
+  <link rel="icon" href="/de-de/astra-control-center-2211/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/de-de/astra-control-center-2211/css/netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/de-de/astra-control-center-2211/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/de-de/astra-control-center-2211/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel="canonical" href="https://docs.netapp.com/de-de/astra-control-center-2211/use/protect-apps.html" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.netapp.com/us-en/astra-control-center-2211/use/protect-apps.html" />
+  <link rel="alternate" hreflang="de" href="https://docs.netapp.com/de-de/astra-control-center-2211/use/protect-apps.html" />
+  <link rel="alternate" hreflang="en" href="https://docs.netapp.com/us-en/astra-control-center-2211/use/protect-apps.html" />
+  <link rel="alternate" hreflang="ja" href="https://docs.netapp.com/ja-jp/astra-control-center-2211/use/protect-apps.html" />
+  <link rel="alternate" hreflang="ko" href="https://docs.netapp.com/ko-kr/astra-control-center-2211/use/protect-apps.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://docs.netapp.com/zh-cn/astra-control-center-2211/use/protect-apps.html" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://docs.netapp.com/zh-tw/astra-control-center-2211/use/protect-apps.html" />
+  <link rel="alternate" hreflang="es" href="https://docs.netapp.com/es-es/astra-control-center-2211/use/protect-apps.html" />
+  <link rel="alternate" hreflang="fr" href="https://docs.netapp.com/fr-fr/astra-control-center-2211/use/protect-apps.html" />
+  <link rel='stylesheet' href='/de-de/astra-control-center-2211/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
+    function addAdobeLaunch(adobeId) {
+      var head = document.getElementsByTagName('head')[0];
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/"+adobeId+".min.js";
+      head.appendChild(adobe);
+    }
+
+    function addGoogleAnalytics(gtagId) {
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id="+gtagId;
+      var head = document.getElementsByTagName('head')[0];
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gtagId);
+    }
+
+    function addConsent(consentId) {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/"+consentId+"/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = consentId;
+      head.appendChild(onetrustScript);
+    }addConsent("72570c5c-fe30-465f-b0e0-b77f7fb4ae34");
+    addAdobeLaunch("launch-e9ff3acac59f");
+    addGoogleAnalytics("UA-81697994-3");function OptanonWrapper() { }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/de-de/astra-control-center-2211/js/na-search.js'></script><script src='/de-de/astra-control-center-2211/js/na-pagenav.js'></script><script src='/de-de/astra-control-center-2211/js/na-utility.js'></script>
+ <!--  
+  <link rel='stylesheet' href='/de-de/astra-control-center-2211/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/de-de/astra-control-center-2211/css/prism-netapp.css' type='text/css'>
+ -->
+
+  <!-- <script src='/de-de/astra-control-center-2211/js/na-utility.js'></script> -->
+  <script src='/de-de/astra-control-center-2211/js/clouddocs.js'></script>
+  <script src='/de-de/astra-control-center-2211/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- <script src='/de-de/astra-control-center-2211/js/toc.js'></script> -->
+  <!-- <script src='/de-de/astra-control-center-2211/js/customscripts.js'></script> --><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+          $(".sidebar-nav-container").on("scroll", function() {
+            $.cookie("sidebarScroll", $(".sidebar-nav-container").scrollTop(), {
+              path    : "/de-de/astra-control-center-2211"  
+            });
+          });
+          $(function() {
+            if ($.cookie("sidebarScroll")) {
+              $(".sidebar-nav-container").scrollTop($.cookie("sidebarScroll"));
+            }
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/de-de/astra-control-center-2211/js/custom-dropdown.js'></script>
+  <script src='/de-de/astra-control-center-2211/js/FileSaver.min.js'></script>
+  <script src='/de-de/astra-control-center-2211/js/jszip-utils.min.js'></script>
+  <script src='/de-de/astra-control-center-2211/js/jszip.min.js'></script>
+  <!-- <script src='/de-de/astra-control-center-2211/js/pdf-ux.js'></script> -->
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div id="version-dropdown-new" class="custom-dropdown" >
+  <div class="custom-dropdown-select unselected" title="Astra Control Center 22.11">
+    <label>Version</label>
+    <span translate="no" class="notranslate">Astra Control Center 22.11</span>
+    <img src="/de-de/astra-control-center-2211/images/chevron_up.svg" alt="" class="custom-icon chevrondown invisible" />
+    <img src="/de-de/astra-control-center-2211/images/chevron_down.svg" alt="" class="custom-icon chevronup" />
+  </div>
+
+  <ul class="custom-dropdown-menu"><li>
+      
+      <a href="https://docs.netapp.com/de-de/astra-control-center/use/protect-apps.html" target="_self">
+        <span translate="no" class="notranslate"><span>Astra Control Center</span><span class="version"> 22.11</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/de-de/astra-control-center-2208/use/protect-apps.html" target="_self">
+        <span translate="no" class="notranslate"><span>Astra Control Center</span><span class="version"> 22.08</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/de-de/astra-control-center-2204/use/protect-apps.html" target="_self">
+        <span translate="no" class="notranslate"><span>Astra Control Center</span><span class="version"> 22.04</span></span>
+      </a>
+                     
+    </li>
+    <li>
+      
+      <a href="https://docs.netapp.com/de-de/astra-control-center-2112/use/protect-apps.html" target="_self">
+        <span translate="no" class="notranslate"><span>Astra Control Center</span><span class="version"> 21.12</span></span>
+      </a>
+                     
+    </li>
+    
+  </ul>
+</div><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/astra-control-center-2211/issues/new?body=Page%3A%20[Sichern von Applikationen durch Snapshots und Backups](https://docs.netapp.com/de-de/astra-control-center-2211/use/protect-apps.html)&template=public-issue-template.md" class="page-nav-contribute-link" role="button"><img src="/de-de/astra-control-center-2211/images/discuss-sm.svg" alt="" class="github-icon" />Dokumentationsänderungen beantragen</a><a target="_blank" href="https://github.com/NetAppDocs/astra-control-center-2211/blob/main/use/protect-apps.adoc" class="page-nav-contribute-link" role="button"><img src="/de-de/astra-control-center-2211/images/edit-sm.svg" alt="" class="github-icon" />In GitHub bearbeiten</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/de-de/astra-control-center-2211/images/article-sm.svg" alt="" class="github-icon" />Leitfaden für Beitragende</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">AUF DIESER SEITE</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">Produkt und Lösungen</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">Support und Schulung</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">Community</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">Blog</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">Kundenberichte</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/company/contact-us/" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Kontakt</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/de-de/astra-control-center-2211/search.html"
+          data-type="widget" 
+          data-placeholder="Dokumentation durchsuchen"
+          data-no-results-found="Keine Ergebnisse für {query} gefunden"
+          data-did-you-mean="Nach {suggestion} suchen."
+          data-no-results-found-did-you-mean="Keine Ergebnisse für {query} gefunden. Meinten Sie {suggestion}?"
+          data-results-found="{hitCount} Ergebnisse gefunden"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+      <div class="custom-dropdown-select custom-dropdown-select-lang">
+      <span class="lang-name">Deutsch</span>
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="custom-dropdown-menu"><li>
+          <a href="https://docs.netapp.com/de-de/astra-control-center-2211/use/protect-apps.html" target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/us-en/astra-control-center-2211/use/protect-apps.html" target="_self"><span translate="no" class="notranslate">English</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ja-jp/astra-control-center-2211/use/protect-apps.html" target="_self"><span translate="no" class="notranslate">日本語</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/ko-kr/astra-control-center-2211/use/protect-apps.html" target="_self"><span translate="no" class="notranslate">한국어</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-cn/astra-control-center-2211/use/protect-apps.html" target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/zh-tw/astra-control-center-2211/use/protect-apps.html" target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/es-es/astra-control-center-2211/use/protect-apps.html" target="_self"><span translate="no" class="notranslate">Español</span></a>
+        </li><li>
+          <a href="https://docs.netapp.com/fr-fr/astra-control-center-2211/use/protect-apps.html" target="_self"><span translate="no" class="notranslate">Français</span></a>
+        </li></ul>
+    </div>
+    <!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <button id="btn-sidebar-collapse" onclick="hideSidebar()"><img src="/de-de/astra-control-center-2211/images/collapse.png" alt="Navigationsbereich reduzieren"></button>
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>verfügbare PDFs<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        
+        
+        
+        <a target="_blank" href="/de-de/astra-control-center-2211/pdfs/fullsite-sidebar/Astra_Control_Center_22_11_Dokumentation.pdf" >
+          <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>PDF dieser Dokumentationsseite</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/astra-control-center-2211/pdfs/sidebar/Versionshinweise.pdf" 
+            
+          >
+            <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>
+            Versionshinweise
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/astra-control-center-2211/pdfs/sidebar/Los_geht_s.pdf" 
+            
+          >
+            <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>
+            Los geht's
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/astra-control-center-2211/pdfs/sidebar/Übersicht_über_die_Installation.pdf" 
+            
+          >
+            <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>
+            Übersicht über die Installation
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/astra-control-center-2211/pdfs/sidebar/Installieren_Sie_Astra_Control_Center.pdf" 
+            
+          >
+            <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>
+            Installieren Sie Astra Control Center
+          </a>
+          
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/astra-control-center-2211/pdfs/sidebar/Konzepte.pdf" 
+            
+          >
+            <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>
+            Konzepte
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/astra-control-center-2211/pdfs/sidebar/Nutzen_Sie_Das_Astra_Control_Center.pdf" 
+            
+          >
+            <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>
+            Nutzen Sie Das Astra Control Center
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/astra-control-center-2211/pdfs/sidebar/Schützen_von_Applikationen.pdf" 
+            
+          >
+            <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>
+            Schützen von Applikationen
+          </a>
+          
+
+
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/astra-control-center-2211/pdfs/sidebar/Monitoring_des_Applikations__und_Cluster_Systemzustands.pdf" 
+            
+          >
+            <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>
+            Monitoring des Applikations- und Cluster-Systemzustands
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/astra-control-center-2211/pdfs/sidebar/Konto_verwalten.pdf" 
+            
+          >
+            <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>
+            Konto verwalten
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/astra-control-center-2211/pdfs/sidebar/Automatisierung_mit_Astra_Control_REST_API.pdf" 
+            
+          >
+            <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>
+            Automatisierung mit Astra Control REST-API
+          </a>
+          
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/de-de/astra-control-center-2211/pdfs/sidebar/Wissen_und_Support.pdf" 
+            
+          >
+            <img src="/de-de/astra-control-center-2211/images/pdf.png" alt="" width="16" height="16"/>
+            Wissen und Support
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/de-de/astra-control-center-2211/images/pdf-zip.png" alt="" width="16" height="16"/>
+      <pre>Sammlung separater PDF-Dokumente<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="prod-nav" id="product-nav">
+  <a target="_self" class="prod-fam-nav" href="https://docs.netapp.com/de-de/astra-family/"><img src="/de-de/astra-control-center-2211/images/left_arrow.png" alt=""><pre>Die komplette Astra Dokumentation</pre></a>
+</div><div class="sidebar-nav-container" id="mysidebardiv">
+  <ul id="mysidebar" class="nav"><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Astra Control Center 22.11-Dokumentation"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/index.html">
+        Astra Control Center 22.11-Dokumentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Versionshinweise"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="/de-de/astra-control-center-2211/release-notes/rn_overview.html">
+        <div class="na-navbar-padding"> Versionshinweise</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Neuerungen in dieser Version des Astra Control Center"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/release-notes/whats-new.html">
+        Neuerungen in dieser Version des Astra Control Center
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Bekannte Probleme"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/release-notes/known-issues.html">
+        Bekannte Probleme
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Bekannte Einschränkungen"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/release-notes/known-limitations.html">
+        Bekannte Einschränkungen
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Los geht's"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Los geht's</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Erfahren Sie mehr über Astra Control Center"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/get-started/intro.html">
+        Erfahren Sie mehr über Astra Control Center
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Anforderungen des Astra Control Centers"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/get-started/requirements.html">
+        Anforderungen des Astra Control Centers
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Schnellstart für Astra Control Center"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/get-started/quick-start.html">
+        Schnellstart für Astra Control Center
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Übersicht über die Installation"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="/de-de/astra-control-center-2211/get-started/install_overview.html">
+        <div class="na-navbar-padding"> Übersicht über die Installation</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Installieren Sie Astra Control Center"
+      data-li-level="3" 
+      class="subfolders "
+    ><a href="/de-de/astra-control-center-2211/get-started/install_acc.html">
+        <div class="na-navbar-padding"> Installieren Sie Astra Control Center</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Konfigurieren Sie einen externen Zertifikat-Manager"
+      data-li-level="4#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/get-started/cert-manager-prereqs.html">
+        Konfigurieren Sie einen externen Zertifikat-Manager
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Installieren Sie Astra Control Center mit OpenShift OperatorHub"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/get-started/acc_operatorhub_install.html">
+        Installieren Sie Astra Control Center mit OpenShift OperatorHub
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Installieren Sie Astra Control Center mit einem Cloud Volumes ONTAP Storage-Backend"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/get-started/install_acc-cvo.html">
+        Installieren Sie Astra Control Center mit einem Cloud Volumes ONTAP Storage-Backend
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Konfigurieren Sie nach der Installation das Astra Control Center"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/get-started/configure-after-install.html">
+        Konfigurieren Sie nach der Installation das Astra Control Center
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Einrichten des Astra Control Center"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/get-started/setup_overview.html">
+        Einrichten des Astra Control Center
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Häufig gestellte Fragen"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/get-started/faq.html">
+        Häufig gestellte Fragen
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Konzepte"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Konzepte</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Architektur und Komponenten"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/concepts/architecture.html">
+        Architektur und Komponenten
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Datensicherung"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/concepts/data-protection.html">
+        Datensicherung
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Lizenzierung"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/concepts/licensing.html">
+        Lizenzierung
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Applikationsmanagement"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/concepts/app-management.html">
+        Applikationsmanagement
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Speicherklassen und PV-Größe"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/concepts/choose-class-and-size.html">
+        Speicherklassen und PV-Größe
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Benutzerrollen und Namespaces"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/concepts/user-roles-namespaces.html">
+        Benutzerrollen und Namespaces
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Pod-Sicherheit"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/concepts/understand-pod-security.html">
+        Pod-Sicherheit
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nutzen Sie Das Astra Control Center"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Nutzen Sie Das Astra Control Center</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Starten Sie das Anwendungsmanagement"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/manage-apps.html">
+        Starten Sie das Anwendungsmanagement
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Schützen von Applikationen"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Schützen von Applikationen</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Sicherungsübersicht"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/protection-overview.html">
+        Sicherungsübersicht
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Schützen von Applikationen"
+      data-li-level="3#" 
+      class="  active "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/protect-apps.html">
+        Schützen von Applikationen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Wiederherstellung von Applikationen"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/restore-apps.html">
+        Wiederherstellung von Applikationen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Replizieren von Apps auf einem Remote-System"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/replicate_snapmirror.html">
+        Replizieren von Apps auf einem Remote-System
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Klonen und Migrieren von Applikationen"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/clone-apps.html">
+        Klonen und Migrieren von Applikationen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Anwendungsausführungshaken verwalten"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/execution-hooks.html">
+        Anwendungsausführungshaken verwalten
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Monitoring des Applikations- und Cluster-Systemzustands"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Monitoring des Applikations- und Cluster-Systemzustands</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Dashboard-Übersicht"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/view-dashboard.html">
+        Dashboard-Übersicht
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Systemzustand und Details des Clusters"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/view-clusters.html">
+        Systemzustand und Details des Clusters
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Systemzustand und Details von Anwendungen"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/view-apps.html">
+        Systemzustand und Details von Anwendungen
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Konto verwalten"
+      data-li-level="2" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Konto verwalten</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Managen Sie lokale Benutzer und Rollen"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/manage-local-users-and-roles.html">
+        Managen Sie lokale Benutzer und Rollen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Managen Sie die Remote-Authentifizierung"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/manage-remote-authentication.html">
+        Managen Sie die Remote-Authentifizierung
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Verwalten von Remote-Benutzern und -Gruppen"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/manage-remote-users-groups.html">
+        Verwalten von Remote-Benutzern und -Gruppen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Benachrichtigungen verwalten"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/manage-notifications.html">
+        Benachrichtigungen verwalten
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Anmeldeinformationen verwalten"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/manage-credentials.html">
+        Anmeldeinformationen verwalten
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Überwachen der Kontoaktivität"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/view-account-activity.html">
+        Überwachen der Kontoaktivität
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Aktualisieren einer vorhandenen Lizenz"
+      data-li-level="3#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/update-licenses.html">
+        Aktualisieren einer vorhandenen Lizenz
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Buckets verwalten"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/manage-buckets.html">
+        Buckets verwalten
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Management des Storage-Backends"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/manage-backend.html">
+        Management des Storage-Backends
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Überwachen Sie laufende Aufgaben"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/monitor-running-tasks.html">
+        Überwachen Sie laufende Aufgaben
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Infrastruktur mit Cloud Insights und Fluentd überwachen"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/monitor-protect.html">
+        Infrastruktur mit Cloud Insights und Fluentd überwachen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Heben Sie das Management von Applikationen und Clustern auf"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/unmanage.html">
+        Heben Sie das Management von Applikationen und Clustern auf
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Upgrade Astra Control Center"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/upgrade-acc.html">
+        Upgrade Astra Control Center
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Deinstallieren Sie Astra Control Center"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/use/uninstall_acc.html">
+        Deinstallieren Sie Astra Control Center
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Automatisierung mit Astra Control REST-API"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Automatisierung mit Astra Control REST-API</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Einführung"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/rest-api/api-intro.html">
+        Einführung
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Wissen und Support"
+      data-li-level="1" 
+      class="subfolders "
+    ><a href="#">
+        <div class="na-navbar-padding"> Wissen und Support</div>
+      </a>
+      <ul style="display: none;">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Fehlerbehebung"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/support/troubleshooting-acc.html">
+        Fehlerbehebung
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Holen Sie sich Hilfe"
+      data-li-level="2#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/support/get-help.html">
+        Holen Sie sich Hilfe
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Frühere Versionen"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/acc-earlier-versions.html">
+        Frühere Versionen
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Rechtliche Hinweise"
+      data-li-level="1#" 
+      class=" "
+    ><a class="na-navbar-padding" href="/de-de/astra-control-center-2211/legal-notices.html">
+        Rechtliche Hinweise
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+<script>$("#mysidebar li.active").parents('ul').css("display","block");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <div class="ie-utility">
+  <button id="btn-sidebar-expand" onclick="showSidebar()"><img src="/de-de/astra-control-center-2211/images/expand.png" alt="Navigationsbereich erweitern"></button>
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com/de-de/astra-family/">Astra</a>
+        </li>
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/de-de/astra-control-center-2211/">Astra&nbsp;Control&nbsp;Center</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> Die deutsche Sprachversion wurde als Serviceleistung für Sie durch maschinelle Übersetzung erstellt. Bei eventuellen Unstimmigkeiten hat die englische Sprachversion Vorrang. </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">Sichern von Applikationen durch Snapshots und Backups</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2023-04-25 18:15:13 +0000">04/25/2023</time>
+    
+  
+
+<span>Beitragende
+</span>
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Alle Applikationen werden gesichert, indem Snapshots und Backups über eine automatisierte Sicherungsrichtlinie oder im Ad-hoc-Verfahren erstellt werden. Sie können die Astra Control Center-UI oder verwenden <a href="https://docs.netapp.com/us-en/astra-automation/index.html" target="_blank" rel="noopener">"Die Astra Control API"</a> Um Anwendungen zu schützen.</p>
+</div>
+<div class="ulist">
+<div class="title">Über diese Aufgabe</div>
+<ul>
+<li>
+<p><strong>Helm implementierte Apps</strong>: Wenn Sie Helm zum Bereitstellen von Apps verwenden, benötigt Astra Control Center Helm Version 3. Das Management und Klonen von mit Helm 3 bereitgestellten Apps (oder ein Upgrade von Helm 2 auf Helm 3) werden vollständig unterstützt. Mit Helm 2 implementierte Apps werden nicht unterstützt.</p>
+</li>
+<li>
+<p><strong>(nur OpenShift-Cluster) Richtlinien hinzufügen</strong>: Wenn Sie ein Projekt zum Hosten einer App auf einem OpenShift-Cluster erstellen, wird dem Projekt (oder Kubernetes-Namespace) eine SecurityContext-UID zugewiesen. Um Astra Control Center zum Schutz Ihrer App zu aktivieren und die App in ein anderes Cluster oder Projekt in OpenShift zu verschieben, müssen Sie Richtlinien hinzufügen, mit denen die App als beliebige UID ausgeführt werden kann. Als Beispiel erteilen die folgenden OpenShift-CLI-Befehle der WordPress-App die entsprechenden Richtlinien.</p>
+<div class="paragraph">
+<p><code>oc new-project wordpress</code><br>
+<code>oc adm policy add-scc-to-group anyuid system:serviceaccounts:wordpress</code><br>
+<code>oc adm policy add-scc-to-user privileged -z default -n wordpress</code></p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Sie können die folgenden Aufgaben zum Schutz Ihrer Applikationsdaten ausführen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#konfigurieren-einer-sicherungsrichtlinie">Konfigurieren einer Sicherungsrichtlinie</a></p>
+</li>
+<li>
+<p><a href="#erstellen-sie-einen-snapshot">Erstellen Sie einen Snapshot</a></p>
+</li>
+<li>
+<p><a href="#erstellen-sie-ein-backup">Erstellen Sie ein Backup</a></p>
+</li>
+<li>
+<p><a href="#anzeigen-von-snapshots-und-backups">Anzeigen von Snapshots und Backups</a></p>
+</li>
+<li>
+<p><a href="#snapshots-löschen">Snapshots löschen</a></p>
+</li>
+<li>
+<p><a href="#abbrechen-von-backups">Abbrechen von Backups</a></p>
+</li>
+<li>
+<p><a href="#backups-löschen">Backups löschen</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="konfigurieren-einer-sicherungsrichtlinie">Konfigurieren einer Sicherungsrichtlinie</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Eine Sicherungsrichtlinie sichert eine Applikation, indem Snapshots, Backups oder beides nach einem definierten Zeitplan erstellt werden. Sie können Snapshots und Backups stündlich, täglich, wöchentlich und monatlich erstellen. Außerdem können Sie die Anzahl der beizubehaltenden Kopien festlegen.</p>
+</div>
+<div class="paragraph">
+<p>Wenn Sie Backups oder Snapshots öfter als einmal pro Stunde benötigen, können Sie dies tun <a href="https://docs.netapp.com/us-en/astra-automation/workflows/workflows_before.html" target="_blank" rel="noopener">"Erstellen Sie mithilfe der Astra Control REST API Snapshots und Backups"</a>.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Schritte</div>
+<ol class="arabic">
+<li>
+<p>Wählen Sie <strong>Anwendungen</strong> und dann den Namen einer App aus.</p>
+</li>
+<li>
+<p>Wählen Sie <strong>Datenschutz</strong>.</p>
+</li>
+<li>
+<p>Wählen Sie <strong>Schutzrichtlinie Konfigurieren</strong>.</p>
+</li>
+<li>
+<p>Legen Sie einen Sicherungszeitplan fest, indem Sie die Anzahl der Snapshots und Backups auswählen, die stündlich, täglich, wöchentlich und monatlich erstellt werden sollen.</p>
+<div class="paragraph">
+<p>Sie können die stündlichen, täglichen, wöchentlichen und monatlichen Zeitpläne gleichzeitig festlegen. Ein Zeitplan wird erst aktiviert, wenn Sie eine Aufbewahrungsstufe festlegen.</p>
+</div>
+<div class="paragraph">
+<p>Wenn Sie ein Aufbewahrungsniveau für Backups festlegen, können Sie den Bucket auswählen, auf dem Sie die Backups speichern möchten.</p>
+</div>
+<div class="paragraph">
+<p>Im folgenden Beispiel sind vier Sicherungspläne definiert: Stündlich, täglich, wöchentlich und monatlich für Snapshots und Backups.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../media/use/screenshot-config-protection-policy.png" alt="Einen Screenshot einer Beispielkonfigurationsrichtlinie, in der Sie Snapshots und Backups stündlich, täglich, wöchentlich oder monatlich erstellen können."></span></p>
+</div>
+</li>
+<li>
+<p>Wählen Sie <strong>Bewertung</strong>.</p>
+</li>
+<li>
+<p>Wählen Sie <strong>Schutzrichtlinie Festlegen.</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Ergebnis</div>
+<p>Astra Control implementiert die Datensicherungsrichtlinien, indem Snapshots und Backups mithilfe der von Ihnen definierten Zeitplan und Aufbewahrungsrichtlinie erstellt und aufbewahrt werden.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="erstellen-sie-einen-snapshot">Erstellen Sie einen Snapshot</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sie können jederzeit einen On-Demand-Snapshot erstellen.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Schritte</div>
+<ol class="arabic">
+<li>
+<p>Wählen Sie <strong>Anwendungen</strong>.</p>
+</li>
+<li>
+<p>Wählen Sie im Menü Optionen in der Spalte <strong>Aktionen</strong> für die gewünschte App die Option <strong>Snapshot</strong> aus.</p>
+</li>
+<li>
+<p>Passen Sie den Namen des Snapshots an und wählen Sie dann <strong>Weiter</strong>.</p>
+</li>
+<li>
+<p>Überprüfen Sie die Snapshot-Zusammenfassung und wählen Sie <strong>Snapshot</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Ergebnis</div>
+<p>Der Snapshot-Prozess beginnt. Ein Snapshot ist erfolgreich, wenn der Status in der Spalte <strong>Zustand</strong> auf der Seite <strong>Datenschutz</strong> &gt; <strong>Snapshots</strong> in der Spalte <strong>Zustand</strong> angegeben ist.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="erstellen-sie-ein-backup">Erstellen Sie ein Backup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sie können eine App auch jederzeit sichern.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-control-center-2211/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
+S3 Buckets im Astra Control Center berichten nicht über die verfügbare Kapazität. Bevor Sie Backups oder Klonanwendungen durchführen, die von Astra Control Center gemanagt werden, sollten Sie die Bucket-Informationen im ONTAP oder StorageGRID Managementsystem prüfen.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Schritte</div>
+<ol class="arabic">
+<li>
+<p>Wählen Sie <strong>Anwendungen</strong>.</p>
+</li>
+<li>
+<p>Wählen Sie im Menü Optionen in der Spalte <strong>Aktionen</strong> für die gewünschte App die Option <strong>Sichern</strong> aus.</p>
+</li>
+<li>
+<p>Passen Sie den Namen des Backups an.</p>
+</li>
+<li>
+<p>Wählen Sie aus, ob die Anwendung aus einem vorhandenen Snapshot gesichert werden soll. Wenn Sie diese Option auswählen, können Sie aus einer Liste vorhandener Snapshots auswählen.</p>
+</li>
+<li>
+<p>Wählen Sie aus der Liste der Storage-Buckets einen Ziel-Bucket für das Backup aus.</p>
+</li>
+<li>
+<p>Wählen Sie <strong>Weiter</strong>.</p>
+</li>
+<li>
+<p>Überprüfen Sie die Backup-Zusammenfassung und wählen Sie <strong>Backup</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Ergebnis</div>
+<p>Astra Control erstellt ein Backup der App.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-control-center-2211/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
+Wenn Ihr Netzwerk ausfällt oder ungewöhnlich langsam ist, kann es zu einer Zeit für einen Backup-Vorgang kommen. Dies führt zum Fehlschlagen der Datensicherung.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-control-center-2211/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
+Wenn Sie eine laufende Sicherung abbrechen müssen, befolgen Sie die Anweisungen unter <a href="#abbrechen-von-backups">Abbrechen von Backups</a>. Um das Backup zu löschen, warten Sie, bis es abgeschlossen ist, und befolgen Sie die Anweisungen unter <a href="#backups-löschen">Backups löschen</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-control-center-2211/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
+Nach einer Datensicherungsoperation (Klonen, Backup, Restore) und einer anschließenden Anpassung des persistenten Volumes beträgt die Verzögerung bis zu zwanzig Minuten, bevor die neue Volume-Größe in der UI angezeigt wird. Der Datensicherungsvorgang ist innerhalb von Minuten erfolgreich und Sie können mit der Management Software für das Storage-Backend die Änderung der Volume-Größe bestätigen.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="anzeigen-von-snapshots-und-backups">Anzeigen von Snapshots und Backups</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sie können die Snapshots und Backups einer Anwendung auf der Registerkarte Datenschutz anzeigen.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Schritte</div>
+<ol class="arabic">
+<li>
+<p>Wählen Sie <strong>Anwendungen</strong> und dann den Namen einer App aus.</p>
+</li>
+<li>
+<p>Wählen Sie <strong>Datenschutz</strong>.</p>
+<div class="paragraph">
+<p>Die Snapshots werden standardmäßig angezeigt.</p>
+</div>
+</li>
+<li>
+<p>Wählen Sie <strong>Backups</strong>, um die Liste der Backups anzuzeigen.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="snapshots-löschen">Snapshots löschen</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Löschen Sie die geplanten oder On-Demand Snapshots, die Sie nicht mehr benötigen.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-control-center-2211/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
+Sie können keinen Snapshot löschen, der derzeit repliziert wird.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Schritte</div>
+<ol class="arabic">
+<li>
+<p>Wählen Sie <strong>Anwendungen</strong> und dann den Namen einer verwalteten App aus.</p>
+</li>
+<li>
+<p>Wählen Sie <strong>Datenschutz</strong>.</p>
+</li>
+<li>
+<p>Wählen Sie im Menü Optionen in der Spalte <strong>Aktionen</strong> für den gewünschten Snapshot die Option <strong>Snapshot löschen</strong> aus.</p>
+</li>
+<li>
+<p>Geben Sie das Wort „Löschen“ ein, um das Löschen zu bestätigen und wählen Sie dann <strong>Ja, Snapshot löschen</strong> aus.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Ergebnis</div>
+<p>Astra Control löscht den Snapshot.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="abbrechen-von-backups">Abbrechen von Backups</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sie können ein gerade einlaufenden Backup abbrechen.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-control-center-2211/images/tip.svg" alt="Hinweis">
+</td>
+<td class="content">
+Um ein Backup abzubrechen, muss sich das Backup befinden <code>Running</code> Bundesland. Sie können ein Backup, das sich in befindet, nicht abbrechen <code>Pending</code> Bundesland.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Schritte</div>
+<ol class="arabic">
+<li>
+<p>Wählen Sie <strong>Anwendungen</strong> und dann den Namen einer App aus.</p>
+</li>
+<li>
+<p>Wählen Sie <strong>Datenschutz</strong>.</p>
+</li>
+<li>
+<p>Wählen Sie <strong>Backups</strong>.</p>
+</li>
+<li>
+<p>Wählen Sie im Menü Optionen in der Spalte <strong>Aktionen</strong> für das gewünschte Backup die Option <strong>Abbrechen</strong> aus.</p>
+</li>
+<li>
+<p>Geben Sie das Wort „Abbrechen“ ein, um den Vorgang zu bestätigen, und wählen Sie dann <strong>Ja, Sicherung abbrechen</strong> aus.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="backups-löschen">Backups löschen</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Löschen Sie die geplanten oder On-Demand-Backups, die Sie nicht mehr benötigen.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/astra-control-center-2211/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
+Wenn Sie eine laufende Sicherung abbrechen müssen, befolgen Sie die Anweisungen unter <a href="#abbrechen-von-backups">Abbrechen von Backups</a>. Um das Backup zu löschen, warten Sie, bis es abgeschlossen ist, und befolgen Sie diese Anweisungen.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Schritte</div>
+<ol class="arabic">
+<li>
+<p>Wählen Sie <strong>Anwendungen</strong> und dann den Namen einer App aus.</p>
+</li>
+<li>
+<p>Wählen Sie <strong>Datenschutz</strong>.</p>
+</li>
+<li>
+<p>Wählen Sie <strong>Backups</strong>.</p>
+</li>
+<li>
+<p>Wählen Sie im Menü Optionen in der Spalte <strong>Aktionen</strong> für das gewünschte Backup die Option <strong>Backup löschen</strong> aus.</p>
+</li>
+<li>
+<p>Geben Sie das Wort „Löschen“ ein, um das Löschen zu bestätigen und wählen Sie dann <strong>Ja, Sicherung löschen</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Ergebnis</div>
+<p>Astra Control löscht das Backup.</p>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/copyright/">© 2023 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">Allgemeine Geschäftsbedingungen</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Richtlinie zu Datenschutz</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Richtlinie zu Cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Cookie-Einstellungen</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a target="_self" href="javascript:netapp_mailto()">Feedback zu dieser Seite senden</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/de-de/astra-control-center-2211/images/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/de-de/astra-control-center-2211/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/de-de/astra-control-center-2211/js/prism.js'></script>
+      <script type="text/javascript" src='/de-de/astra-control-center-2211/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/de-de/astra-control-center-2211/js/tabbed-blocks.js'></script>
+    <script src='/de-de/astra-control-center-2211/js/sidebar.js'></script>
+  </body></html>
