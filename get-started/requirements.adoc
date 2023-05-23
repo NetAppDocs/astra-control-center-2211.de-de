@@ -169,13 +169,13 @@ NOTE: Sie können Astra Control Center in einem Dual-Stack-Kubernetes-Cluster im
 | Kennzahlenverbraucher | Astra Control Center Worker-Node | 9090 | HTTPS | Kennzahlen Datenkommunikation - sicherstellen, dass jeder verwaltete Cluster auf diesen Port auf dem Cluster zugreifen kann, das Astra Control Center hostet (Kommunikation in zwei Bereichen erforderlich) 
 
 
-| Astra Control Center | Gehosteter Cloud Insights Service (https://www.netapp.com/cloud-services/cloud-insights/)[] | 443 | HTTPS | Cloud Insights Kommunikation 
+| Astra Control Center | Gehosteter Cloud Insights Service  | 443 | HTTPS | Cloud Insights Kommunikation 
 
 
 | Astra Control Center | Amazon S3 Storage-Bucket-Provider | 443 | HTTPS | Amazon S3 Storage-Kommunikation 
 
 
-| Astra Control Center | NetApp AutoSupport (https://support.netapp.com)[] | 443 | HTTPS | Kommunikation zwischen NetApp AutoSupport 
+| Astra Control Center | NetApp AutoSupport  | 443 | HTTPS | Kommunikation zwischen NetApp AutoSupport 
 |===
 
 
